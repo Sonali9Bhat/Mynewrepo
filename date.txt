@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Text;
+namespace WebApplication1
+{
+    public partial class datenhidikhrhi : System.Web.UI.Page
+    {
+        StringBuilder strScript = new StringBuilder();
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            try { 
+            var date = textbox1.Text;
+            strScript.Append(@"<script type='text/javascript'>  
+                    google.load('visualization', '1', {packages: ['corechart']});</script>  
+  
+                    <script type='text/javascript'>  
+                    function drawVisualization() {         
+                    var data = new google.visualization.arrayToDataTable([  
+                    ['date','number'],");
+
+
+                strScript.Append("['" + date.ToString() + "'," + 345 + "],");
+               
+            strScript.Remove(strScript.Length - 1, 1);
+            strScript.Append("]);");
+
+            strScript.Append("var options = { title : 'Monthly Coffee Production by Country', vAxis: {title: 'Cups'},  hAxis: {title: 'Month'}, seriesType: 'bars', series: {3: {type: 'area'}} };");
+            strScript.Append(" var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));  chart.draw(data, options); } google.setOnLoadCallback(drawVisualization);");
+            strScript.Append(" </script>");
+
+            ltScripts.Text = strScript.ToString();
+        }  
+        catch  
+        {  
+        }  
+        finally  
+        {  
+           
+            strScript.Clear();  
+        }
+}  
+        }
+    }
